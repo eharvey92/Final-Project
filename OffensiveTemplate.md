@@ -63,14 +63,26 @@ The following vulnerabilities were found on Target 1:
 
 
 ### Exploitation
-_TODO: Fill out the details below. Include screenshots where possible._
 
 The Red Team was able to penetrate `Target 1` and retrieve the following confidential data:
 - Target 1
-  - `flag1.txt`: _TODO: Insert `flag1.txt` hash value_
+  - `flag1.txt`: {b9bbcb33e11b80be759c4e844862482d}
     - **Exploit Used**
-      - _TODO: Identify the exploit used_
-      - _TODO: Include the command run_
+      - WPScan was used to enumerate users on the Wordpress site for Target 1
+      - wpscan --url 192.168.1.110/wordpress --enumerate vp,u
+
+![Pen test - Kali WPS scan command](https://user-images.githubusercontent.com/88017838/153717305-6f93c63e-b549-4056-b2ce-85e0a36f9ae6.PNG)
+![Pen test - Kali WPScan Users identified](https://user-images.githubusercontent.com/88017838/153717542-e785b810-839e-471f-9ee7-4b5890003b9e.PNG)
+
+      - Focusing on the user michael, I was able to run a Hydra brute force to quickly obtain his password, which as indicated below is a weak and easily crackable one
+      - hydra -l michael -P /usr/share/wordlists/rockyou.txt 192.168.1.110 ssh -t 4
+      
+![Pen test - Kali Hydra michael](https://user-images.githubusercontent.com/88017838/153717654-754970ea-af9a-4c40-8590-47abebbd7194.PNG)
+
+      - Using michael's credentials we can then SSH into 192.168.1.110 and located flag1 by following below steps:
+        - cd /var/www/html
+        - ls -l
+        - after investigating multiple files, the flag1 was located via nano services.html
   - `flag2.txt`: _TODO: Insert `flag2.txt` hash value_
     - **Exploit Used**
       - _TODO: Identify the exploit used_
