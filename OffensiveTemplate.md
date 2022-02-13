@@ -133,5 +133,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
        - Here we ran **`sudo -l`** followed by **`sudo python -c 'import pty;pty.spawn("/bin/bash")'`** to escalate to root 
        - As indicated below, the exploit was successful and we were able to change to root and locate flag4
   
+  ![image](https://user-images.githubusercontent.com/88017838/153733258-7942f54a-f1e1-4843-9707-3d353d2b8419.png)
+
   
      
