@@ -102,7 +102,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 
    - `flag3.txt`:{afc01ab56b50591e7dccf93122770cd2}
    
-    = **Exploit Used**
+    - **Exploit Used**
        - Locating the wp-config.php file
        - cd /var/www/html/wordpress 
        - cat wp-config.php revealed the username and password for MySQL database
@@ -121,5 +121,6 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 
  ![Pen test - Kali wp_posts user hashes](https://user-images.githubusercontent.com/88017838/153732974-8bdb86b1-9566-43fa-a6ac-8bb7eae7b6c1.PNG)
 
- 
+ ![image](https://user-images.githubusercontent.com/88017838/153733028-890cd68f-010e-4828-98d4-cb3f4b61703e.png)
+
 
