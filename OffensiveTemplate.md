@@ -70,9 +70,9 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 
   - `flag1.txt`:{b9bbcb33e11b80be759c4e844862482d}
   
-    - **Exploit Used**
-      - WPScan was used to enumerate users on the Wordpress site for Target 1
-      - **`wpscan --url 192.168.1.110/wordpress --enumerate vp,u`**
+   - **Exploit Used**
+    - WPScan was used to enumerate users on the Wordpress site for Target 1
+    - **`wpscan --url 192.168.1.110/wordpress --enumerate vp,u`**
 
 ![Pen test - Kali WPS scan command](https://user-images.githubusercontent.com/88017838/153717305-6f93c63e-b549-4056-b2ce-85e0a36f9ae6.PNG)
 ![Pen test - Kali WPScan Users identified](https://user-images.githubusercontent.com/88017838/153717542-e785b810-839e-471f-9ee7-4b5890003b9e.PNG)
@@ -102,7 +102,7 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 
    - `flag3.txt`:{afc01ab56b50591e7dccf93122770cd2}
    
-    - **Exploit Used**
+   - **Exploit Used**
        - Locating the wp-config.php file
        - cd /var/www/html/wordpress 
        - cat wp-config.php revealed the username and password for MySQL database
@@ -123,4 +123,15 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
 
  ![image](https://user-images.githubusercontent.com/88017838/153733028-890cd68f-010e-4828-98d4-cb3f4b61703e.png)
 
-
+   - `flag4.txt`:{715dea6c055b9fe3337544932F2941ce}
+     
+   - **Exploit Used**
+       - Misconfigured privilege escalation and unsalted hashes from MySQL database
+       - Using the hashes found previously in the MySQL database for michael and steven we extracted these to a wp_hashes.txt file and ran John the Ripper
+       - **`john wp_hashes.txt
+       - Once the hash for user steven was cracked we can SSH into 192.168.1.110 using password pink84
+       - Here we ran **`sudo -l`** followed by **`sudo python -c 'import pty;pty.spawn("/bin/bash")'`** to escalate to root 
+       - As indicated below, the exploit was successful and we were able to change to root and locate flag4
+  
+  
+     
