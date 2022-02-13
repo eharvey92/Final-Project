@@ -128,12 +128,15 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
    - **Exploit Used**
        - Misconfigured privilege escalation and unsalted hashes from MySQL database
        - Using the hashes found previously in the MySQL database for michael and steven we extracted these to a wp_hashes.txt file and ran John the Ripper
-       - **`john wp_hashes.txt
+       - **`john wp_hashes.txt`**
        - Once the hash for user steven was cracked we can SSH into 192.168.1.110 using password pink84
        - Here we ran **`sudo -l`** followed by **`sudo python -c 'import pty;pty.spawn("/bin/bash")'`** to escalate to root 
        - As indicated below, the exploit was successful and we were able to change to root and locate flag4
   
   ![image](https://user-images.githubusercontent.com/88017838/153733258-7942f54a-f1e1-4843-9707-3d353d2b8419.png)
+  
+  ![Pen test - Kali ssh steven and root Raven](https://user-images.githubusercontent.com/88017838/153733293-33877a56-3833-4f03-8cdb-217d4aea4f5f.PNG)
+
 
   
      
